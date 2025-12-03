@@ -1,0 +1,27 @@
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.env.*
+
+# === Node / React ===
+node_modules/
+build/
+dist/
+
+# === Logs ===
+*.log
+
+# === OS ===
+.DS_Store
+
+# === IDE ===
+.vscode/
+.idea/
+
+# === Secrets ===
+*.key
+*.pem
