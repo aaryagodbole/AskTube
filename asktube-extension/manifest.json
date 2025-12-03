@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "AskTube AI Chatbot",
+  "version": "1.0",
+  "description": "AI chatbot for YouTube videos",
+
+  "permissions": ["activeTab"],
+
+  "host_permissions": [
+    "http://127.0.0.1:8000/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["style.css"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "Chatbot-icon.png",
+        "robot-assistant.png"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,12 +1,14 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 
 def fetch_transcript(video_id):
-    api = YouTubeTranscriptApi()
+    try:
+        ytt_api = YouTubeTranscriptApi()
+        transcript = ytt_api.fetch(video_id, languages=["en"])
 
-    transcript = api.fetch(video_id)
+        # converts snippets -> plain text
+        text = " ".join([snippet.text for snippet in transcript])
+        return text
 
-    # Convert snippets into clean text
-    raw = transcript.to_raw_data()
-    full_text = " ".join([s["text"] for s in raw])
-
-    return full_text
+    except Exception as e:
+        print("⚠️ Transcript not available:", e)
+        return ""
