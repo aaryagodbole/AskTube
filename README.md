@@ -9,23 +9,62 @@
 ![WhatsApp Image 2025-12-03 at 22 39 11](https://github.com/user-attachments/assets/2f121413-7341-44ab-8fcc-32ec33d5f961)
 
 
-## Install
+## Installation guide
+1. Backend Installation (FastAPI + RAG Engine)
+
+## Clone the repository
 
 ```sh
-🛠️ Installation Guide
+git clone https://github.com/aaryagodbole/AskTube.git
+cd AskTube/backend
+
 ```
 
-## Usage
+## Create a virtual environment (recommended)
 
 ```sh
-✅ 1. Backend Installation (FastAPI + RAG Engine)
+python -m venv venv
+source venv/bin/activate   # Mac/Linux
+venv\Scripts\activate      # Windows
 ```
 
-## Run tests
+## Install dependencies
 
 ```sh
-git clone <your-repo-url>
+pip install -r requirements.txt
 ```
+
+## Run the FastAPI server
+
+```sh
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+## Backend now runs at:
+
+```sh
+http://127.0.0.1:8000
+```
+
+## 2. Chrome Extension Installation
+Load the extension in Chrome
+1) Open Chrome
+2) Go to:
+
+```sh
+chrome://extensions/
+```
+
+3) Enable Developer Mode (top-right)
+4) Click Load unpacked
+5) Select the folder:
+
+```sh
+AskTube/extension
+```
+Done!
+
+Now open YouTube, and the AskTube floating chatbot will appear automatically.
 
 ## Author
 
