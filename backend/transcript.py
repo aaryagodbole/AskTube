@@ -1,5 +1,15 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 
+import re
+
+def extract_video_id(url: str):
+    pattern = r"(?:v=|youtu\.be\/|shorts\/)([a-zA-Z0-9_-]{11})"
+    match = re.search(pattern, url)
+    if match:
+        return match.group(1)
+    return None
+
+
 def fetch_transcript(video_id):
     try:
         ytt_api = YouTubeTranscriptApi()

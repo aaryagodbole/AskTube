@@ -32,8 +32,8 @@
   position: fixed;
   bottom: 100px;
   right: 20px;
-  width: 420px;
-  height: 550px;
+  width: 520px;
+  height: 700px;
   background: #050505;
   color: #ffffff;
   border-radius: 24px;
@@ -312,4 +312,5 @@
   border-radius: 0;
   border: none;
 }
+
 

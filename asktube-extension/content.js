@@ -17,7 +17,7 @@ root.innerHTML = `
         </div>
         <div class="asktube-title">
           <h2>AskTube </h2>
-          <span>Your AI copilot for YouTube</span>
+         
         </div>
       </div>
       <div class="asktube-header-right">
@@ -60,8 +60,13 @@ const fullscreenBtn = document.getElementById("asktube-fullscreen-btn");
 const messagesEl = document.getElementById("asktube-messages");
 const inputEl = document.getElementById("asktube-input");
 const sendBtn = document.getElementById("asktube-send-btn");
-const micBtn = document.getElementById("asktube-mic-btn");
+
 const statusEl = document.getElementById("asktube-status");
+
+
+chatEl.style.display = "none";
+
+
 
 let isOpen = false;
 let isFull = false;
@@ -88,7 +93,12 @@ function addMessage(text, from = "bot") {
 
     const bubble = document.createElement("div");
     bubble.className = "asktube-bubble " + (from === "user" ? "user" : "bot");
+    if (from === "bot") {
+    typeText(bubble, formatMarkdown(text), 15);
+} else {
     bubble.innerHTML = formatMarkdown(text);
+}
+
 
     function formatMarkdown(text) {
         return text
@@ -106,8 +116,6 @@ function addMessage(text, from = "bot") {
     }
 
 
-
-
     if (from === "user") {
         row.appendChild(bubble);
         row.appendChild(avatar);
@@ -119,6 +127,51 @@ function addMessage(text, from = "bot") {
     messagesEl.appendChild(row);
     messagesEl.scrollTop = messagesEl.scrollHeight;
 }
+
+function typeText(element, html, speed = 15) {
+    isTyping = true;
+    element.innerHTML = "";
+
+    let i = 0;
+
+    // ✅ PRESERVE MARKUP + LINE BREAKS
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    const nodes = tempDiv.childNodes;
+
+    function typeNode(index = 0) {
+        if (index >= nodes.length) {
+            isTyping = false;
+            sendBtn.disabled = !inputEl.value.trim();
+            return;
+        }
+
+        const node = nodes[index];
+
+        if (node.nodeType === Node.TEXT_NODE) {
+            let charIndex = 0;
+            const interval = setInterval(() => {
+                if (charIndex < node.textContent.length) {
+                    element.innerHTML += node.textContent.charAt(charIndex);
+                    charIndex++;
+                    messagesEl.scrollTop = messagesEl.scrollHeight;
+                } else {
+                    clearInterval(interval);
+                    typeNode(index + 1);
+                }
+            }, speed);
+        } else {
+            element.appendChild(node.cloneNode(true));
+            typeNode(index + 1);
+        }
+    }
+
+    typeNode();
+}
+
+
+
+
 
 function showThinking() {
     const row = document.createElement("div");
@@ -162,21 +215,14 @@ function openChat() {
 
     if (!hasWelcomed) {
         hasWelcomed = true;
-        const welcome = "Hi! I’m AskTube . Ask me anything 🚀";
-        let idx = 0;
-        let current = "";
-        const interval = setInterval(() => {
-            if (idx >= welcome.length) {
-                clearInterval(interval);
-                return;
-            }
-            current += welcome[idx];
-            if (messagesEl.lastChild) messagesEl.lastChild.remove();
-            addMessage(current, "bot");
-            idx++;
-        }, 25);
+
+        setTimeout(() => {
+            const welcome = "Hi! I’m AskTube. Ask me anything 🚀";
+            addMessage(welcome, "bot");
+        }, 400);   // ✅ Delay prevents lag
     }
 }
+
 
 function closeChat() {
     chatEl.style.display = "none";
