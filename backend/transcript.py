@@ -20,5 +20,5 @@ def fetch_transcript(video_id):
         return text
 
     except Exception as e:
-        print("⚠️ Transcript not available:", e)
+        print("Transcript not available:", e)
         return ""

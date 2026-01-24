@@ -36,14 +36,6 @@ class ChatRequest(BaseModel):
 # ---------- URL -> ID ----------
 
 def get_video_id_from_url(url: str) -> str:
-    """
-    YouTube URL se video_id nikalta hai.
-    Support:
-      - https://www.youtube.com/watch?v=ABC123
-      - https://youtu.be/ABC123
-      - https://www.youtube.com/shorts/ABC123
-    Agar normal ID di ho to wahi return karega.
-    """
     parsed = urlparse(url)
 
     # short links: youtu.be/ID
@@ -92,7 +84,7 @@ def chat_endpoint(data: ChatRequest):
     # PREVENT CRASH: Handle empty transcript safely
     if not transcript.strip():
         return {
-            "reply": "⚠️ Sorry, I couldn't fetch subtitles for this video at the moment. "
+            "reply": "Sorry, I couldn't fetch subtitles for this video at the moment. "
                      "Please try another video or refresh and try again.",
             "video_id": video_id
         }
