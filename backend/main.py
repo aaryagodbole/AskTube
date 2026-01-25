@@ -85,7 +85,7 @@ def chat_endpoint(data: ChatRequest):
     if not transcript.strip():
         return {
             "reply": "Sorry, I couldn't fetch subtitles for this video at the moment. "
-                     "Please try another video or refresh and try again.",
+            "Please try another video or refresh and try again.",
             "video_id": video_id
         }
 
